@@ -1,0 +1,12 @@
+[init]
+    defaultBranch = main
+[pull]
+    rebase = true
+[merge]
+    conflictstyle = zdiff3
+[diff]
+    colorMoved = default
+[core]
+    editor = emacsclient -t
+[include]
+    path = ~/.gitconfig.local
