@@ -270,6 +270,20 @@
         ess-r-lintr-linters '("default")))
 
 ;; =============================================================================
+;; Lang: Lua & Hyprland Configs
+;; Set 2-space Lua indentation, Stylua formatting, and Hyprland conf mapping.
+;; =============================================================================
+
+(after! lua-mode
+  (setq lua-indent-level 2
+        lua-indent-string-contents t))
+
+(after! apheleia
+  (setf (alist-get 'lua-mode apheleia-mode-alist) 'stylua))
+
+(add-to-list 'auto-mode-alist '("/hypr/.*\\.conf\\'" . conf-space-mode))
+
+;; =============================================================================
 ;; Prose: Spellcheck & Language Detection (Hunspell + guess-language)
 ;; Default to de_AT with en_AU-large support and OS-specific dictionary paths.
 ;; =============================================================================
