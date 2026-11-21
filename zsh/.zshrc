@@ -97,6 +97,16 @@ unset -f _load_p10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # ==============================================================================
+# Keybindings: Predictable Arrow-Key History Navigation
+# Keep Up/Down cycling through full history entries without prefix lock-in.
+# ==============================================================================
+
+bindkey '^[[A' up-line-or-history
+bindkey '^[[B' down-line-or-history
+bindkey '^[OA' up-line-or-history
+bindkey '^[OB' down-line-or-history
+
+# ==============================================================================
 # Aliases: File Listing, Safety Nets, Editor & Midnight Commander
 # Use eza, bat, interactive file safety flags, and emacsclient shortcuts.
 # ==============================================================================
@@ -123,7 +133,7 @@ alias mc="SHELL=/bin/bash mc"
 
 # Linux / CachyOS / Hyprland specific
 if [[ "$OSTYPE" == linux* ]]; then
-    command -v doas >/dev/null 2>&1 && alias sudo='doas'
+    command -v doas >/dev/null 2>&1 &&  fnalias sudo='doas'
     alias smc='doas env SHELL=/bin/bash mc'
     alias pss='pacman -Ss'
     alias pqi='pacman -Qi'
@@ -145,3 +155,14 @@ export FZF_DEFAULT_OPTS="
   --color=bg+:#3c3836,bg:#282828,spinner:#fabd2f,hl:#fe8019
   --color=fg:#ebdbb2,header:#83a598,info:#b8bb26,pointer:#fabd2f
   --color=marker:#fb4934,fg+:#fbf1c7,prompt:#fabd2f,hl+:#fb4934"
+
+# Pull updates and re-link any newly added Stow packages
+
+dotup() {
+  git -C "$HOME/.dotfiles" pull --rebase || return 1
+  if [[ "$OSTYPE" == linux* ]]; then
+    stow -d "$HOME/.dotfiles" -t "$HOME" -R doom kitty zsh
+  else
+    stow -d "$HOME/.dotfiles" -t "$HOME" -R doom kitty zsh
+  fi
+}
