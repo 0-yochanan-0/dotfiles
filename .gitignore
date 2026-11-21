@@ -1,0 +1,6 @@
+.DS_Store
+*.elc
+*~
+\#*\#
+.zcompdump*
+zsh/.zsh_history
