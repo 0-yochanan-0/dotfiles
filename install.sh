@@ -37,12 +37,11 @@ if [[ "$OS" == "macos" ]]; then
   brew install --cask \
     kitty \
     font-meslo-lg-nerd-font \
-    mactex-no-gui
 
   if [[ ! -d "/Applications/Emacs.app" ]]; then
     brew tap d12frosted/emacs-plus
-    brew install emacs-plus@30 --with-native-comp --with-dbus
-    ln -sfn "$(brew --prefix)/opt/emacs-plus@30/Emacs.app" /Applications/Emacs.app
+    brew install emacs-plus --with-native-comp --with-dbus
+    ln -sfn "$(brew --prefix)/opt/emacs-plus/Emacs.app" /Applications/Emacs.app
   fi
 
 elif [[ "$OS" == "linux" ]]; then
@@ -50,15 +49,13 @@ elif [[ "$OS" == "linux" ]]; then
   command -v doas >/dev/null 2>&1 || PRIV_CMD="sudo"
 
   echo "==> Installing Pacman packages..."
-  $PRIV_CMD pacman -Syu --needed --noconfirm \
+  $PRIV_CMD pacman -Syyu --needed --noconfirm \
     git stow ripgrep fd base-devel \
     kitty ttf-meslo-nerd \
     eza bat fzf mc btop \
     zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search \
-    emacs-wayland hunspell hunspell-de hunspell-en_au languagetool \
-    texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra \
-    texlive-luatex texlive-langgerman texlive-binextra \
-    lua-language-server stylua
+    emacs hunspell languagetool \
+    texlive-full lua-language-server stylua
 
   # Install zsh-autocomplete via AUR helper (paru/yay) if available, else fallback to OMZ custom
   if command -v paru >/dev/null 2>&1; then
