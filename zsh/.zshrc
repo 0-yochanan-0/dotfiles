@@ -123,6 +123,7 @@ alias mc="SHELL=/bin/bash mc"
 
 # Linux / CachyOS / Hyprland specific
 if [[ "$OSTYPE" == linux* ]]; then
+    command -v doas >/dev/null 2>&1 && alias sudo='doas'
     alias smc='doas env SHELL=/bin/bash mc'
     alias pss='pacman -Ss'
     alias pqi='pacman -Qi'
@@ -132,6 +133,7 @@ if [[ "$OSTYPE" == linux* ]]; then
     alias hlogs='cat ~/.cache/hyprland/hyprland.log | tail -50'
     alias music-mode='systemctl --user stop hypridle && notify-send "Music mode" "Screen lock disabled"'
     alias music-stop='systemctl --user start hypridle && notify-send "Music mode" "Screen lock enabled"'
+alias sudo='doas'
 fi
 
 # ==============================================================================
